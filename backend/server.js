@@ -142,17 +142,11 @@ const MemberAuth = mongoose.model('MemberAuth', memberAuthSchema);
 
 // ইমেইল ট্রান্সপোর্টার সেটআপ
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465, // অথবা 587 ব্যবহার করতে পারেন
-    secure: true, // যদি 465 হয় তবে true, আর 587 হলে false দিন
+    service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    tls: {
-        rejectUnauthorized: false // রেন্ডার ক্লাউডের জন্য এসএসএল সার্টিফিকেট ইস্যু এড়াতে এটি জরুরি
-    },
-    connectionTimeout: 10000, // ১০ সেকেন্ড টাইমআউট সেট করে দেওয়া যাতে ফেইল করার আগে সময় পায়
+        user: process.env.EMAIL_USER, // আপনার জিমেইল (যেমন: abc@gmail.com)
+        pass: process.env.EMAIL_PASS  // গুগল থেকে পাওয়া ১৬ অক্ষরের App Password
+    }
 });
 
 
@@ -1194,7 +1188,6 @@ app.post('/api/auth/send-otp', async (req, res) => {
         res.status(500).json({ message: "সার্ভার এরর! ওটিপি পাঠানো যায়নি।" });
     }
 });
-
 
 // ২. পাসওয়ার্ড রিসেট ভেরিফিকেশন
 // ২. পাসওয়ার্ড রিসেট ভেরিফিকেশন (Email + Role ভিত্তিক)
