@@ -2988,7 +2988,7 @@ db.once('open', () => {
 
 // Homepage Route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../HTML/index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/HTML/index.html"));
 });
 
 // ✅ 404 Route (এখানে)
