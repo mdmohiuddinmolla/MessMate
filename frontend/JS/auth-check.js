@@ -25,7 +25,7 @@ function checkSessionTimeout() {
         alert("Session expired for security. Please log in again.");
         localStorage.clear();
         sessionStorage.clear();
-        // window.location.href = '/frontend/HTML/login.html'; // এই লাইনটি বন্ধ করে দিলাম
+        // window.location.href = '/HTML/login.html'; // এই লাইনটি বন্ধ করে দিলাম
     }
 }
     }

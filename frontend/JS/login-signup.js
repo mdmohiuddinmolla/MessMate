@@ -184,7 +184,7 @@ document.getElementById('login-form-data')?.addEventListener('submit', async fun
             }
 
             // ৫. ড্যাশবোর্ডে রিডাইরেক্ট করা
-            window.location.href = '/frontend/HTML/dashboard.html';
+            window.location.href = '/HTML/dashboard.html';
         }
         else {
             Swal.fire({

@@ -1,4 +1,4 @@
-// /frontend/JS/theme-handler.js
+// /JS/theme-handler.js
 
 document.addEventListener('DOMContentLoaded', async () => {
     const themeToggle = document.getElementById('global-theme-toggle');

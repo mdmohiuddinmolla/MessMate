@@ -473,7 +473,7 @@ const response = await fetch(API + '/api/auth/reset-member-id', {
                 text: 'নতুন ইউনিক আইডি আপনার ইমেইলে পাঠানো হয়েছে!',
                 confirmButtonColor: '#38a169'
             }).then(() => {
-                window.location.href = "/frontend/HTML/member.html";
+                window.location.href = "/HTML/member.html";
                 location.reload(); 
             });
         } else {

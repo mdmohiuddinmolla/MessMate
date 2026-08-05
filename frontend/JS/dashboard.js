@@ -58,7 +58,7 @@ function updateProfileInfo() {
         if (dropdownMenu) {
             const isApprovedManager = (role === 'manager' && status === 'active');
             dropdownMenu.innerHTML = `
-                <li><a href="/frontend/HTML/profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                <li><a href="/HTML/profile.html"><i class="fas fa-user"></i> My Profile</a></li>
                 ${isApprovedManager ? '<li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>' : ''}
                 <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
             `;
@@ -68,8 +68,8 @@ function updateProfileInfo() {
         if (phoneDisplay) phoneDisplay.innerText = "Login to access more";
         if (dropdownMenu) {
             dropdownMenu.innerHTML = `
-                <li><a href="/frontend/HTML/login.html"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                <li><a href="/frontend/HTML/login.html#signup"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li><a href="/HTML/login.html"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+                <li><a href="/HTML/login.html#signup"><i class="fas fa-user-plus"></i> Sign Up</a></li>
                 <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
             `;
         }
@@ -114,7 +114,7 @@ function setupProfileDropdown() {
             if (confirm("Are you sure you want to log out?")) {
                 localStorage.clear();
                 sessionStorage.clear();
-                window.location.replace('/frontend/HTML/index.html'); 
+                window.location.replace('/HTML/index.html'); 
             }
         }
     });

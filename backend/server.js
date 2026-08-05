@@ -102,7 +102,7 @@ const managerAuthSchema = new mongoose.Schema({
     resetOTP: { type: String, default: null },
     emailChangeOTP: { type: String, default: null }, // শুধু ইমেইলের জন্য
     phoneChangeOTP: { type: String, default: null }, // শুধু ফোনের জন্য
-    profilePic: { type: String, default: "/frontend/Image/user.png" },
+    profilePic: { type: String, default: "/Image/user.png" },
     theme: { type: String, default: 'dark' }
 }, { collection: 'manager_accounts' });
 
@@ -121,7 +121,7 @@ const memberAuthSchema = new mongoose.Schema({
     role: { type: String, default: 'member' },
     status: { type: String, default: 'pending' },
     resetOTP: { type: String, default: null },
-    profilePic: { type: String, default: "/frontend/Image/user.png" },
+    profilePic: { type: String, default: "/Image/user.png" },
     theme: { type: String, default: 'dark' },
     emailChangeOTP: { type: String, default: null }, 
     phoneChangeOTP: { type: String, default: null }, 
@@ -2988,7 +2988,7 @@ db.once('open', () => {
 
 // Homepage Route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/HTML/index.html"));
+    res.sendFile(path.join(__dirname, "../HTML/index.html"));
 });
 
 // ✅ 404 Route (এখানে)
