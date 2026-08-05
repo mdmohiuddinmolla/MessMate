@@ -1,0 +1,46 @@
+/* পেজ হেডার ডিজাইন */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* ওপর থেকে নিচে নামানোর জন্য margin এবং padding */
+    margin-top: 25px; 
+    padding-bottom: 15px;
+    margin-bottom: 30px; 
+    
+    border-bottom: 2px solid #eee; /* সেই নির্দিষ্ট বর্ডার লাইন */
+    color: #333;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.welcome-icon {
+    color: #4CAF50;
+    font-size: 1.4rem;
+}
+
+.header-left h2 {
+    font-size: 1.6rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* ডার্ক মোড সাপোর্ট (ডার্ক মোডে লাইন ও লেখার রঙ পরিবর্তন) */
+body.dark-theme .page-header {
+    border-bottom-color: #333 !important;
+}
+
+body.dark-theme .header-left h2 {
+    color: #fff !important;
+}
+
+/* থিম সুইচ কন্টেইনার */
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+}

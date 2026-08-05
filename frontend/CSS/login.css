@@ -1,0 +1,304 @@
+/* গ্লোবাল স্টাইল ও ফন্ট */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --dark-bg: #2c2c2c;
+    --box-bg: #1e1e1e;
+    --primary-color: #2196F3; /* ম্যানেজার কালার: নীল */
+    --text-color: #ffffff;
+    --input-bg: #333333;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.auth-container {
+    padding: 20px;
+    width: 100%;
+}
+
+.auth-box {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: var(--box-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.logo-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.logo-header i {
+    font-size: 40px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+.logo-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* টগল বাটন স্টাইল */
+.toggle-buttons {
+    display: flex;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: var(--input-bg);
+}
+.toggle-btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    background-color: transparent;
+    color: #AAAAAA;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.toggle-btn.active {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* ফর্ম স্টাইল */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+.auth-form.hidden {
+    display: none;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: var(--input-bg);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    position: relative; /* password toggle এর জন্য */
+    padding-right: 45px; /* password toggle এর জন্য জায়গা */
+}
+.input-group i {
+    color: #AAAAAA;
+    margin-right: 10px;
+}
+.input-group input {
+    flex-grow: 1;
+    padding: 12px 0;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    outline: none;
+    font-size: 16px;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 5px; /* টগল বাটনের জন্য জায়গা রাখতে */
+}
+.input-group input::placeholder {
+    color: #888;
+}
+
+/* পাসওয়ার্ড টগল বাটন স্টাইল */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #AAAAAA;
+    padding: 0;
+    font-size: 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+/* --------------------------------- */
+
+/* Remember Me ও Forgot Link */
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #AAAAAA;
+}
+.remember-me input[type="checkbox"] {
+    margin-right: 5px;
+    accent-color: var(--primary-color); 
+}
+.forgot-link {
+    text-align: right;
+    margin-bottom: 0;
+}
+.forgot-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+.forgot-link a:hover {
+    color: #1976D2;
+}
+
+
+/* Date Range স্টাইল */
+.date-label {
+    display: block;
+    font-size: 14px;
+    color: #AAAAAA;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 500;
+}
+.date-label i {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+.date-range-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.date-input {
+    flex: 1;
+    padding: 0;
+}
+.date-range-group span {
+    color: #AAAAAA;
+    font-size: 16px;
+    font-weight: 500;
+}
+.date-input input[type="date"],
+.date-input input[type="text"] { /* এই লাইনটি যোগ করা হলো */
+    padding: 12px 10px;
+    width: 100%;
+    /* নিশ্চিত করার জন্য */
+    background: none; 
+    border: none;
+    outline: none;
+    color: var(--text-color);
+}
+
+
+/* বাটন স্টাইল */
+.btn-primary {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+.btn-primary:hover {
+    background-color: #1976D2;
+}
+
+.back-home {
+    text-align: center;
+    margin-top: 30px;
+}
+.back-home a {
+    color: #AAAAAA;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+.back-home a:hover {
+    color: var(--text-color);
+}
+
+
+ /* (((new st))) */
+
+/* ড্রপডাউন কন্টেইনার */
+.input-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    background: #333; /* ইনপুট বক্সের ব্যাকগ্রাউন্ডের সাথে ম্যাচ করে */
+    color: white;
+    border: 1px solid #444;
+    padding: 12px 40px 12px 45px; /* আইকন এবং অ্যারোর জন্য স্পেসিং */
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* হোভার করলে বর্ডার কালার চেঞ্জ হবে */
+.input-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* কাস্টম অ্যারো আইকন - একদম ডান পাশে সুন্দরভাবে বসানোর জন্য */
+.input-group:has(select)::after {
+    content: '\f107'; /* FontAwesome Chevron Down */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007bff; /* অ্যারোর কালার নীল বা আপনার পছন্দমতো */
+    pointer-events: none;
+    font-size: 14px;
+}
+
+/* অপশন গুলোর স্টাইল (ব্রাউজার ভেদে সীমিত কাজ করে) */
+.input-group select option {
+    background-color: #222;
+    color: white;
+    padding: 10px;
+}
+
+/* (((new end))) */
+
+
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.otp-box {
+    background: #1a1a2e; padding: 30px; border-radius: 15px; width: 350px;
+    border: 1px solid #3498db; text-align: center;
+}
+.otp-box h3 { color: white; margin-bottom: 20px; }
+.info-text { color: #ccc; font-size: 13px; margin-bottom: 10px; }
+.close-modal { 
+    background: none; border: none; color: #e74c3c; 
+    margin-top: 15px; cursor: pointer; font-size: 14px; 
+}
+.hidden { display: none !important; }

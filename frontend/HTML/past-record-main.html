@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Past Records</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <link rel="stylesheet" href="/frontend/CSS/expenses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+    
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+    <div class="page-header">
+        <div class="header-left">
+           <i class="fas fa-history welcome-icon" style="color: #ff9800;"></i>
+            <h2>Past Records</h2>
+        </div>
+
+        <div class="header-right">
+            <div class="theme-switch-container">
+                <label class="theme-switch">
+                    <input type="checkbox" id="global-theme-toggle">
+                    <span class="slider round">
+                        <i class="fas fa-sun sun-icon"></i>
+                        <i class="fas fa-moon moon-icon"></i>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="book-shelf" id="diary-container"></div>
+
+    </main>
+
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="../JS/dashboard.js"></script>
+<script src="../JS/theme-handler.js"></script>
+<script src="../JS/past-record.js"></script>
+
+</body>
+</html>

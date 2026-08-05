@@ -1,0 +1,232 @@
+/* ১. গ্লোবাল এবং বডি স্টাইল */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #111; /* মেইন ব্যাকগ্রাউন্ড কালো */
+}
+
+.wrapper {
+    display: flex; 
+}
+
+/* ২. সাইডবার স্টাইল */
+.sidebar {
+    width: 250px;
+    background: #111;
+    color: #ccc;
+    padding: 30px 10px;
+    height: 100vh;
+}
+
+/* ৩. প্রোফাইল এরিয়া (সাইডবারের ওপরের অংশ) */
+.profile-area {
+    padding: 15px 5px;
+    margin-bottom: 5px;
+    color: #fff;
+    cursor: pointer;
+    background: #1e1e1e;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.profile-area:hover {
+    background: #2a2a2a;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid #777;
+}
+
+.profile-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.profile-email {
+    font-size: 0.8em;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ৪. সাইডবার মেনু আইটেম */
+.sidebar-menu-container { 
+    margin-top: 20px;
+}
+
+.menu-item, .home-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 4px 0;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.menu-item img, .home-item img {
+    width: 35px;
+    height: 35px;
+    filter: invert(70%);
+}
+
+.menu-item span, .home-item span {
+    color: #AAAAAA;
+    font-size: 16px;
+}
+
+.menu-item:hover, .home-item:hover {
+    background: #1e1e1e;
+}
+
+.menu-item:hover span, .home-item:hover span {
+    color: #FFFFFF;
+}
+
+.menu-item.active span, .home-item.active span {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* ৫. মেইন কন্টেন্ট এরিয়া (আপনার সাদা বক্সটি) */
+.content {
+    flex: 1;
+    background: #ffffff;
+    margin: 20px;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #ddd; 
+    transition: all 0.3s ease;
+}
+
+/* ৬. মেম্বার পেজের মতো হেডার ও লাইন স্টাইল */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee; /* মেম্বার পেজের সেই লাইন */
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.section-header h2 {
+    font-size: 1.6rem;
+}
+
+.welcome-icon {
+    color: #4CAF50;
+    font-size: 1.2em;
+}
+
+/* ৭. থিম সুইচ ডিজাইন */
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+}
+
+/* ডার্ক মোড সাপোর্ট (theme-handler.js এর জন্য) */
+body.dark-theme .content {
+    background: #111 !important;
+    border-color: #333 !important;
+    color: #fff;
+}
+
+body.dark-theme .section-header {
+    border-bottom-color: #333 !important;
+    color: #fff;
+}
+
+/* প্রোফাইল ড্রপডাউন */
+.profile-dropdown-menu {
+    list-style: none;
+    background: #1e1e1e;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.profile-dropdown-menu li a {
+    display: flex;
+    padding: 10px 20px;
+    color: #ddd;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/*  ----  */
+
+
+/* পেজ হেডার ডিজাইন */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* ওপর থেকে নিচে নামানোর জন্য margin এবং padding */
+    margin-top: 25px; 
+    padding-bottom: 15px;
+    margin-bottom: 30px; 
+    
+    border-bottom: 2px solid #ddd; /* সেই নির্দিষ্ট বর্ডার লাইন */
+    color: #333;
+}
+
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.welcome-icon {
+    color: #4CAF50;
+    font-size: 1.4rem;
+}
+
+.header-left h2 {
+    font-size: 1.6rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* ডার্ক মোড সাপোর্ট (ডার্ক মোডে লাইন ও লেখার রঙ পরিবর্তন) */
+body.dark-theme .page-header {
+    border-bottom-color: #333 !important;
+}
+
+body.dark-theme .header-left h2 {
+    color: #fff !important;
+}
+
+/* থিম সুইচ কন্টেইনার */
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+}
+
+
+/*  ----  */

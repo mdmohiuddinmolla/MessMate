@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal Management</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/meal-record.css"> 
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+    
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+    <div class="meal-record-container">
+        
+        <!-- ১. মেইন হেডার এবং থিম টগল বাটন (এক লাইনে ডানে-বামে) -->
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+            <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-utensils welcome-icon" style="color: #4CAF50; font-size: 1.8rem;"></i>
+                <h2 style="margin: 0; font-size: 1.8rem;">Monthly Meal Record Management</h2>
+            </div>
+
+            <!-- থিম টগল বাটন -->
+            <div class="header-right">
+                <div class="theme-switch-container">
+                    <label class="theme-switch">
+                        <input type="checkbox" id="global-theme-toggle">
+                        <span class="slider round">
+                            <i class="fas fa-sun sun-icon"></i>
+                            <i class="fas fa-moon moon-icon"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+   
+        <!-- ২. কুইক মিল বাটন এবং সার্চবার একসাথে এক লাইনে সাজানো -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
+            
+            <!-- কুইক মিল বাটন -->
+            <div class="quick-meal-setup"> 
+                <button id="open-quick-meal-modal" class="submit-btn" style="background: #3182ce; padding: 10px 18px; font-size: 14px; cursor: pointer; border-radius: 6px; color: #fff; border: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <i class="fas fa-bolt"></i> Quick Meal Panel
+                </button>
+            </div>
+
+        
+
+            <div class="meal-summary">
+                <button id="open-meal-summary-modal" class="submit-btn" style="background: #d69e2e; padding: 10px 18px; font-size: 14px; cursor: pointer; border-radius: 6px; color: #fff; border: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <i class="fas fa-chart-pie"></i> Meal Summary
+                </button>
+            </div>
+
+            <!-- সার্চবার -->
+            <div class="search-box" style="position: relative; display: flex; align-items: center;">
+                <i class="fas fa-search" style="position: absolute; left: 14px; color: #a0aec0; font-size: 0.9rem;"></i>
+                <input type="text" id="member-search-input" placeholder="Search member..." style="padding: 9px 12px 9px 38px; border-radius: 6px; border: 1px solid var(--border-color, #cbd5e0); font-size: 14px; outline: none; width: 240px; background: var(--input-bg, #fff); color: var(--text-color, #333);">
+            </div>
+
+        </div>
+        
+        <!-- ৩. মিল রেকর্ড টেবিল এরিয়া -->
+        <div id="monthly-record-area" class="monthly-record-area"></div>
+        
+        <!-- ৪. ফুটার ও পেজিনেশন -->
+        <div class="meal-footer-flex-wrapper">
+            <div class="pagination-controls hidden" id="pagination-controls"></div>
+
+            <div class="table-action-area hidden">
+                <button id="save-meal-data" class="submit-btn">
+                    <i class="fas fa-save"></i> Save Current Page Data
+                </button>
+            </div>
+        </div>
+
+    </div>      
+</main>
+
+
+
+<!-- === নতুন যোগ করা Advanced Meal Quick Input Modal / Section === -->
+<div id="quick-meal-modal" class="modal-container hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+
+    <div class="modal-content" style="background: var(--bg-color, #fff); padding: 25px; border-radius: 10px; width: 600px; max-width: 90%; max-height: 90vh; overflow-y: auto;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin: 0;">Quick Meal Assignment Panel</h3>
+            <button id="close-quick-modal" style="background: none; border: none; font-size: 18px; cursor: pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <!-- Search & Date Filter inside Modal -->
+        <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+            <input type="text" id="quick-search-member" placeholder="Search member by name/room..." style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            
+            <button id="select-yesterday-btn" style="padding: 8px 12px; background: #3182ce; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Copy Yesterday</button>
+        </div>
+
+        <!-- Date & Value Fields -->
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <label style="font-size: 13px; display: block; margin-bottom: 5px;">Select Date:</label>
+                <input type="date" id="quick-meal-date" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="flex: 1;">
+                <label style="font-size: 13px; display: block; margin-bottom: 5px;">Lunch Value (Main):</label>
+                <input type="number" id="quick-lunch-val" value="1" min="0" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div style="flex: 1;">
+                <label style="font-size: 13px; display: block; margin-bottom: 5px;">Dinner Value (Main):</label>
+                <input type="number" id="quick-dinner-val" value="1" min="0" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+        </div>
+        <!-- নতুন: Select All এবং Count -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                <input type="checkbox" id="quick-select-all" style="width: 16px; height: 16px; cursor: pointer;"> Select All
+            </label>
+            <span id="quick-selected-count-text" style="font-size: 13px; font-weight: 600; color: #3182ce;">Selected: 0 members</span>
+        </div>
+
+        <!-- Member Checkbox List with Increment/Decrement controls -->
+        <div id="quick-member-list-container" style="max-height: 250px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+            <!-- Dynamic checkboxes will load here -->
+        </div>
+
+        <!-- Save Button -->
+        <div style="text-align: right;">
+            <button id="save-quick-meals-btn" style="background: #38a169; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Save to Meal Table</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- === Meal Summary Modal === -->
+<div id="meal-summary-modal" class="modal-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-content" style="background: var(--bg-color, #fff); padding: 25px; border-radius: 10px; width: 650px; max-width: 90%; max-height: 90vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin: 0;">Meal Summary by Date[cite: 8]</h3>
+            <button id="close-summary-modal" style="background: none; border: none; font-size: 18px; cursor: pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+            <input type="date" id="summary-filter-date" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            <button id="load-summary-btn" style="padding: 8px 15px; background: #3182ce; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Show Summary</button>
+        </div>
+
+        <div id="summary-result-container" style="max-height: 300px; overflow-y: auto; border: 1px solid #eee; padding: 10px; border-radius: 5px;">
+            <p style="text-align: center; color: #718096;">Please select a date to view active meals[cite: 8].</p>
+        </div>
+    </div>
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="../JS/dashboard.js"></script> 
+<script src="../JS/meal-record.js"></script>
+<script src="../JS/theme-handler.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+</body>
+</html>

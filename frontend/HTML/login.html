@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MessMate - Access Portal</title>
+    
+    <link rel="stylesheet" href="/frontend/CSS/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            
+            <div class="logo-header">
+                <i class="fas fa-user-shield"></i>
+                <h2>MessMate Portal</h2>
+            </div>
+            
+            <div class="toggle-buttons">
+                <button class="toggle-btn active" id="login-toggle">Login</button>
+                <button class="toggle-btn" id="signup-toggle">Sign Up</button>
+            </div>
+
+            <form class="auth-form" id="login-form-data">
+                <div class="input-group">
+                    <i class="fas fa-user-tag"></i>
+                    <select id="login-role" style="background:none; border:none; color:white; width:100%; outline:none;">
+                        <option value="member" style="color:black;">Login as Member</option>
+                        <option value="manager" style="color:black;">Login as Manager</option>
+                        
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-mobile-alt"></i>
+                    <input type="tel" id="login-phone" placeholder="Phone Number" pattern="[0-9]{10,15}" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" id="login-password" required>
+                    <button type="button" class="password-toggle" data-target="login-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="options-row">
+                    <div class="remember-me">
+        <input type="checkbox" id="remember-me" name="remember" checked>
+        
+        <label for="remember-me" style="cursor: pointer;">Remember Me</label>
+    </div>
+                    <div class="forgot-link">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <form class="auth-form hidden" id="signup-form-data">
+                <div class="input-group">
+                    <i class="fas fa-user-tag"></i>
+                    <select id="signup-role" onchange="toggleSignupFields()" style="background:none; border:none; color:white; width:100%; outline:none;">
+                        <option value="member" style="color:black;">Register as Member</option>
+                        <option value="manager" style="color:black;">Register as Manager</option>
+                    </select>
+                </div>
+
+            
+
+                <div class="input-group" id="signup-name-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="Email Address" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-mobile-alt"></i>
+                    <input type="tel" id="signup-phone" placeholder="Phone Number" pattern="[0-9]{10,15}" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Set Password" id="signup-password" required>
+                     <button type="button" class="password-toggle" data-target="signup-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Confirm Password" id="confirm-password" required>
+                     <button type="button" class="password-toggle" data-target="confirm-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <div id="manager-only-fields"style="display: none;">
+                    <label class="date-label"><i class="fas fa-calendar-alt"></i> Manager Term :</label>
+                    <div class="date-range-group">
+                        <div class="input-group date-input">
+                            <input type="text" id="start-date" title="Start Date" placeholder="DD-MM-YYYY">
+                        </div>
+                        <span>to</span>
+                        <div class="input-group date-input">
+                            <input type="text" id="end-date" title="End Date" placeholder="DD-MM-YYYY">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            
+            <p class="back-home"><a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a></p>
+
+        </div>
+    </div>
+
+
+    <div id="otp-modal" class="modal-overlay hidden">
+    <div class="otp-box">
+        <h3 id="modal-header">Reset Password</h3>
+        
+        <!-- Step 1: Email and Role Input -->
+        <div id="otp-step-1">
+            <div class="input-group">
+                <i class="fas fa-user-tag"></i>
+                <select id="otp-role" style="width: 100%; padding: 10px; border: none; outline: none; background: transparent; color: #fff;">
+                    <option value="member" style="color: #000;">Member</option>
+                    <option value="manager" style="color: #000;">Manager</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="otp-email" placeholder="Enter Registered Email">
+            </div>
+            
+            <button type="button" class="btn btn-primary" onclick="sendOTP()">Send OTP to Email</button>
+        </div>
+
+        <!-- Step 2: OTP and New Password Input (Initially Hidden) -->
+        <div id="otp-step-2" style="display: none;">
+            <p class="info-text" style="color: #ccc; margin-bottom: 15px; text-align: center;">Enter the 4-digit code sent to your email</p>
+            
+            <div class="input-group">
+                <i class="fas fa-key"></i>
+                <input type="text" id="otp-code" placeholder="4 Digit OTP">
+            </div>
+
+            <div class="input-group" style="position: relative; display: flex; align-items: center;">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="otp-new-password" placeholder="New Password" style="padding-right: 40px; width: 100%;">
+                <span class="password-toggle" data-target="otp-new-password" style="position: absolute; right: 10px; cursor: pointer; z-index: 10; padding: 5px; color: #aaa;">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="verifyAndReset()">Verify & Reset</button>
+            
+            <p style="text-align: center; margin-top: 10px; font-size: 14px;">
+                Didn't get the code? 
+                <a href="javascript:void(0)" id="resend-link" onclick="sendOTP()" style="color: #3498db; text-decoration: none; font-weight: bold;">Resend OTP</a>
+            </p>
+        </div>
+
+        <button type="button" class="close-modal" onclick="closeOtpModal()" style="margin-top: 15px; background: transparent; border: none; color: #ff5252; cursor: pointer; width: 100%;">Cancel</button>
+    </div>
+</div>
+
+<script src="../JS/config.js"></script>    
+<script src="../JS/auth-check.js"></script>
+    <script src=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../JS/login-signup.js"></script>
+    <script src="../JS/pass-otp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+
+</body>
+</html>

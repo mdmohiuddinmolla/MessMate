@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Report</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/heade.css">
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .content > .page-header:first-child {
+        margin-bottom: 50px !important;
+    }
+        /* ডার্ক মোডের জন্য কাস্টম স্টাইল যা theme-handler.js এর সাথে ১০০% সামঞ্জস্যপূর্ণ */
+        body.dark-theme {
+            background-color: #121212;
+            color: #f8fafc;
+        }
+        body.dark-theme .custom-card,
+        body.dark-theme .page-header,
+        body.dark-theme .custom-table-container {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+        }
+        body.dark-theme .text-gray-900, 
+        body.dark-theme .text-gray-800 {
+            color: #f8fafc !important;
+        }
+        body.dark-theme .text-gray-500, 
+        body.dark-theme .text-gray-400 {
+            color: #94a3b8 !important;
+        }
+        body.dark-theme .border-gray-50, 
+        body.dark-theme .border-gray-100 {
+            border-color: #334155 !important;
+        }
+        body.dark-theme .bg-gray-50 {
+            background-color: #0f172a !important;
+        }
+        body.dark-theme tr.hover\:bg-gray-50\/50:hover {
+            background-color: rgba(51, 65, 85, 0.4) !important;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #111827 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .sidebar, aside, nav, #sidebar, .main-navigation, #print-report-btn, button, .no-print {
+                display: none !important;
+            }
+            .custom-card, .bg-gray-800, .bg-gray-700, .bg-gray-900 {
+                background-color: #ffffff !important;
+                border: 1px solid #e5e7eb !important;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            table, th, td {
+                border-color: #cbd5e1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+        <!-- Header with Print Button Shifted Left/Proper Alignment -->
+        <div class="page-header bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex flex-wrap justify-between items-center gap-4 mb-6">
+    <!-- বাম পাশের টাইটেল -->
+    <div class="header-left flex items-center gap-3">
+        <i class="fas fa-chart-bar welcome-icon text-2xl" style="color: #2196f3;"></i>
+        <div>
+            <h2 class="text-xl font-bold text-gray-800" id="monthly-report-title-date">Monthly Report</h2>
+        </div>
+
+        <div class="theme-switch-container ml-2">
+            <label class="theme-switch">
+                <input type="checkbox" id="global-theme-toggle">
+                <span class="slider round">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- ডান পাশের বাটন এবং থিম টগল -->
+    <div class="header-right flex items-center flex-wrap gap-3">
+
+        
+        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition shadow-sm">
+            <i class="fas fa-print"></i> Print Report
+        </button>
+
+        <button id="download-image-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition shadow-sm">
+            <i class="fas fa-image"></i> Save as Image
+        </button>
+    </div>
+</div>
+
+        <!-- ========================================== -->
+        <!-- এখানে আইডিটি যুক্ত করা হলো: printable-report-area -->
+        <!-- ========================================== -->
+        <div id="printable-report-area" class="space-y-6">
+
+            <!-- ম্যানেজার ডিটেইলস কার্ড -->
+            <div class="flex justify-center mb-6">
+                <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100 w-full sm:w-2/3 lg:w-1/2 text-center">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-indigo-500 mb-1">Manager Details</p>
+                    <h3 class="text-lg font-bold text-gray-900" id="manager-card-name">Name: লোড হচ্ছে...</h3>
+                    <p class="text-xs text-gray-500 mt-1" id="manager-card-somoykal">সময়কাল: লোড হচ্ছে...</p>
+                </div>
+            </div>
+
+            <!-- 6 Summary Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Card 1 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মোট বাজার খরচ</p>
+        <h3 class="text-xl font-bold text-gray-900 mt-1" id="card-total-bazar">৳ 0</h3>
+        <div class="mt-2 text-xs text-gray-500 flex flex-col space-y-1.5 border-t pt-2 border-gray-50">
+            <span class="font-bold text-gray-800" id="card-cash-cost">নগদ খরচ: ৳ 0</span>
+            <span class="font-bold text-gray-800" id="card-due-cost">বাকি খরচ: ৳ 0</span>
+        </div>
+    </div>
+    
+    <!-- Card 2 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মোট মিল</p>
+        <h3 class="text-xl font-bold text-indigo-600 mt-1" id="card-total-meal">0 টি</h3>
+        <p class="mt-2 text-xs text-gray-400">চলতি মাসের মোট মিল সংখ্যা</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মিল রেট</p>
+        <h3 class="text-xl font-bold text-indigo-600 mt-1" id="card-meal-rate">৳ 0.00</h3>
+        <p class="mt-2 text-xs text-gray-400">প্রতি মিলের খরচ</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মোট কালেকশন</p>
+        <h3 class="text-xl font-bold text-emerald-600 mt-1" id="card-total-term-expense">৳ 0</h3>
+        <p class="mt-2 text-xs text-gray-400">সদস্যদের মোট জমা</p>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মোট বাকি খরচ</p>
+        <h3 class="text-xl font-bold text-gray-900 mt-1" id="card-total-due-expense">৳ 0</h3>
+        <div class="mt-2 text-xs text-gray-500 flex flex-col space-y-1.5 border-t pt-2 border-gray-50">
+            <span class="font-bold text-gray-800" id="card-due-paid">বাকি পরিশোধ: ৳ 0</span>
+            <span class="font-bold text-gray-800" id="card-due-remaining">বাকি: ৳ 0</span>
+        </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="custom-card bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">মোট রান্নার বিল</p>
+        <h3 class="text-xl font-bold text-rose-600 mt-1" id="card-cook-total">৳ 0</h3>
+        <div class="mt-2 text-xs text-gray-500 flex flex-col space-y-1.5 border-t pt-2 border-gray-50">
+            <span class="font-bold text-gray-800" id="card-cook-paid">রান্নার বিল পরিশোধ: ৳ 0</span>
+            <span class="font-bold text-gray-800" id="card-cook-remaining">রান্নার বিল বাকি: ৳ 0</span>
+        </div>
+    </div>
+</div>
+
+            <!-- Member Report Table -->
+            <div class="custom-table-container bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-4 border-b border-gray-100">
+                    <h3 class="font-bold text-gray-800 text-sm">সদস্যভিত্তিক হিসাব বিবরণী</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600 uppercase tracking-wider border-b border-gray-100">
+                                <th class="py-3 px-3 text-center"></th>
+                                <th class="py-3 px-3 text-center text-gray-900">মেম্বার ডিটেইলস</th>
+                                <th class="py-3 px-3 text-center text-gray-900">মোট মিল</th>
+                                <th class="py-3 px-3 text-center text-gray-900">মিলের খরচ</th>
+                                <th class="py-3 px-3 text-center text-gray-900">রান্নার খরচ</th>
+                                <th class="py-3 px-3 text-center text-gray-900">জরিমানা</th>
+                                <th class="py-3 px-3 text-center text-gray-900">মোট খরচ</th>
+                                <th class="py-3 px-3 text-center text-gray-900">মোট জমা</th>
+                                <th class="py-3 px-3 text-center text-rose-600">দিবে</th>
+                                <th class="py-3 px-3 text-center text-emerald-600">পাবে</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-center text-gray-700" id="report-table-body">
+                            <!-- ডাইনামিক রো গুলো এখানে আসবে -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div> <!-- #printable-report-area এর শেষ -->
+
+    </main>
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="../JS/dashboard.js"></script>
+<script src="../JS/theme-handler.js"></script>
+<script src="../JS/monthly-report.js"></script>
+</body>
+</html>

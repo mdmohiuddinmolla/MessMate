@@ -1,0 +1,457 @@
+/* /frontend/CSS/member.css */
+
+/* --- Manager Controls and Search Area --- */
+.manager-member-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.action-btn-primary {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.action-btn-primary:hover {
+    background-color: #45a049;
+}
+
+/* Search Box Style */
+.search-box {
+    position: relative;
+}
+
+#member-search-input {
+    padding: 10px 10px 10px 35px; /* Left padding for icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    font-size: 1em;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+/* --- Member Table Styles --- */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.member-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.member-table th, .member-table td {
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    text-align: left;
+    text-align: center;
+    vertical-align: middle;
+    color: #333;
+}
+.member-table thead th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+}
+
+.member-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.member-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Action Button in Table */
+.update-deposit-btn {
+    background-color: #2196F3; /* Blue */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.update-deposit-btn:hover {
+    background-color: #1e87d8;
+}
+
+.update-deposit-btn i {
+    margin-right: 5px;
+}
+
+/* --- Modal/Pop-up Styles --- */
+.modal {
+    display: none; /* Default state is hidden */
+    position: fixed; 
+    z-index: 1000; /* Ensure it's above other elements */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+.modal.visible {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 400px; /* Max width for a neat form */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+/* Form Styling inside Modal */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 5px;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+.delete-btn i {
+    margin-right: 5px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.edit-btn { background-color: #007bff; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }
+.deposit-btn { background-color: #28a745; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }
+.delete-btn { background-color: #dc3545; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; }
+
+.edit-btn:hover, .deposit-btn:hover, .delete-btn:hover { opacity: 0.8; }
+
+
+/* ডার্ক মোড সাপোর্ট */
+body.dark-theme .member-table th { background-color: #252525; color: #fff; border-color: #444; }
+body.dark-theme .member-table td { color: #eee; border-color: #333; }
+body.dark-theme .member-table tbody tr:nth-child(even) { background-color: #1e1e1e; }
+body.dark-theme .member-table tbody tr:hover { background-color: #2c2c2c; }
+
+body.dark-theme .modal-content {
+    background-color: #1a1a1a;
+    color: #fff;
+    border-color: #333;
+}
+body.dark-theme .modal-content h3 { color: #4CAF50; border-bottom-color: #333; }
+body.dark-theme #mealDetailsBody span { color: #eee; }
+body.dark-theme #mealDetailsBody b { color: #fff; }
+
+
+/* --- Deposit History & Add Member Modal Dark Mode --- */
+
+/* ১. মডাল কন্টেন্ট এবং টেক্সট কালার */
+body.dark-theme .modal-content {
+    background-color: #1a1a1a; /* গাঢ় ব্যাকগ্রাউন্ড */
+    color: #eee; /* হালকা টেক্সট */
+    border-color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ২. ইনপুট ফিল্ড স্টাইল (Add Member Modal এর জন্য) */
+body.dark-theme .modal-content input[type="text"],
+body.dark-theme .modal-content input[type="number"] {
+    background-color: #252525;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+body.dark-theme .modal-content input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* ৩. হিস্টোরি টেবিল স্টাইল (Deposit History Modal এর জন্য) */
+body.dark-theme .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+body.dark-theme .history-table th {
+    background-color: #2c2c2c;
+    color: #4CAF50;
+    border: 1px solid #444;
+    padding: 10px;
+}
+
+body.dark-theme .history-table td {
+    border: 1px solid #333;
+    padding: 10px;
+    color: #ddd;
+    background-color: #1e1e1e;
+}
+
+body.dark-theme .history-table tr:hover td {
+    background-color: #252525;
+}
+
+/* ৪. ক্লোজ বাটন এবং আইকন কালার */
+body.dark-theme .close-btn {
+    color: #888;
+}
+
+body.dark-theme .close-btn:hover {
+    color: #fff;
+}
+
+body.dark-theme .modal-content label {
+    color: #bbb; /* ইনপুট লেবেলগুলো একটু হালকা হবে */
+}
+
+/* ১. ডিপোজিট হিস্টোরির সাদা বক্সগুলো ডার্ক করা */
+body.dark-theme #history-list-body div, 
+body.dark-theme .history-item { 
+    background-color: #252525 !important; 
+    border: 1px solid #444 !important;
+    color: #fff !important;
+}
+
+/* ২. তারিখের টেক্সট সাদা করা */
+body.dark-theme #history-list-body span,
+body.dark-theme .history-date {
+    color: #bbb !important;
+}
+
+/* ৩. টোটাল অ্যামাউন্ট বক্স (নিচেরটি) ডার্ক করা */
+body.dark-theme .modal-content .total-box,
+body.dark-theme #history-modal b {
+    background-color: #2c2c2c !important;
+    color: #4CAF50 !important;
+    border: 1px solid #444 !important;
+}
+
+/* ৪. অ্যাড মেম্বার ফরমের ইনপুট ফিল্ড */
+body.dark-theme #add-member-form input {
+    background-color: #252525;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+
+/* টেবিলের কলাম উইডথ ঠিক করা */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ডার্ক মোড ফিক্স - ইনলাইন স্টাইল ওভাররাইড করা */
+body.dark-theme .history-table td {
+    border-bottom: 1px solid #333;
+    background-color: transparent !important; /* জাভাস্ক্রিপ্টের সাদা ব্যাকগ্রাউন্ড সরাবে */
+}
+
+/* টোটাল বক্সের স্টাইল */
+.total-display-box {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f1f2f6;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+body.dark-theme .total-display-box {
+    background: #2c2c2c;
+    color: #4CAF50;
+    border: 1px solid #444;
+}
+
+
+/* --- Add Yourself & Term Selection Styles --- */
+
+/* ১. 'Add Yourself' বাটনের স্টাইল */
+.action-btn-secondary {
+    background-color: #3498db; /* Blue */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.action-btn-secondary:hover {
+    background-color: #2980b9;
+}
+
+/* ২. টার্ম সিলেকশন কন্টেইনার */
+.term-selection-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background-color: #f1f2f6;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* ৩. ক্যালেন্ডার ইনপুট (Month Picker) স্টাইল */
+.term-dropdown {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+    color: #333;
+}
+
+
+/* মেম্বার পেজের সিলেকশন বক্সকে মিল-রেকর্ড পেজের মত করা */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-field label {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.form-control {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px;
+    outline: none;
+    background-color: white;
+}
+
+/* ডার্ক মোড সাপোর্ট */
+body.dark-theme .form-control {
+    background-color: #252525;
+    color: #fff;
+    border-color: #444;
+}
+
+/* ৪. 'Set Term' বাটনের স্টাইল */
+.action-btn-accent {
+    background-color: #f39c12; /* Orange/Gold */
+    color: white;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.action-btn-accent:hover {
+    background-color: #e67e22;
+}
+
+/* --- ডার্ক মোড ফিক্স --- */
+body.dark-theme .term-selection-container {
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+body.dark-theme .term-dropdown {
+    background-color: #1e1e1e;
+    color: #fff;
+    border-color: #555;
+}
+
+body.dark-theme .term-dropdown::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* ডার্ক মোডে ক্যালেন্ডার আইকন সাদা দেখাবে */
+}
+
+
+
+#active-term-btn {
+    background-color: #27ae60; /* একটিভ করার জন্য সবুজ রঙ */
+    color: white;
+    /* বাকি স্টাইল আগের মতই থাকবে */
+}
+
+#active-term-btn:hover {
+    background-color: #2ecc71;
+}

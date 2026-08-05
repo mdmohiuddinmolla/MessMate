@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/header.css">
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <link rel="stylesheet" href="/frontend/CSS/db-grid.css">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+    
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li>
+        <a href="javascript:void(0)" id="global-theme-toggle">
+            <i class="fas fa-moon" id="theme-icon"></i> <span id="theme-text">Dark Mode</span>
+        </a>
+    </li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+    <div class="page-header">
+        <div class="header-left">
+            <i class="fas fa-hand-sparkles welcome-icon"></i>
+            <h2>Welcome, <span id="display-username">Md Mohiuddin</span>!</h2>
+        </div>
+
+        <div class="header-right">
+            <div class="theme-switch-container">
+                <label class="theme-switch">
+                    <input type="checkbox" id="global-theme-toggle">
+                    <span class="slider round">
+                        <i class="fas fa-sun sun-icon"></i>
+                        <i class="fas fa-moon moon-icon"></i>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  grid -->
+
+
+    <div class="dashboard-grid">
+            <div class="stat-card neon-green">
+                <div class="stat-content">
+                    <p>Meal Rate</p>
+                    <h3>৳ <span id="dash-meal-rate"></span></h3>
+                </div>
+                <i class="fas fa-coins stat-icon"></i>
+            </div>
+            <div class="stat-card neon-blue">
+                <div class="stat-content">
+                    <p>Total Meal</p>
+                    <h3><span id="dash-total-meal"></span></h3>
+                </div>
+                <i class="fas fa-utensils stat-icon"></i>
+            </div>
+            <div class="stat-card neon-red">
+                <div class="stat-content">
+                    <p>Total Expense</p>
+                    <h3>৳ <span id="dash-total-expense"></span></h3>
+                </div>
+                <i class="fas fa-shopping-cart stat-icon"></i>
+            </div>
+            <div class="stat-card neon-purple">
+                <div class="stat-content">
+                    <p>Total Collection</p>
+                    <h3>৳ <span id="dash-total-collection"></span></h3>
+                </div>
+                <i class="fas fa-wallet stat-icon"></i>
+            </div>
+        </div>
+
+        <div class="analysis-grid">
+            <div class="summary-card">
+                <h4><i class="fas fa-user-circle"></i> Your Monthly Summary</h4>
+
+    <div class="summary-list">
+
+            <div class="summary-item expense">
+            <span class="label"><i class="fas fa-wallet"></i> Total Expenses:</span>
+            <span class="value" id="val-expenses">৳ </span>
+        </div>
+
+        <div class="summary-item meals">
+            <span class="label"><i class="fas fa-utensils"></i> Total Meal:</span>
+            <span class="value" id="val-meals"></span>
+        </div>
+
+        <div class="summary-item deposit">
+            <span class="label"><i class="fas fa-money-bill-wave"></i> Total Deposit:</span>
+            <span class="value" id="val-deposit">৳ </span>
+        </div> 
+
+        <div class="summary-item status-box refund">
+            <span class="label"><i class="fas fa-check-circle"></i> Refundable Amount:</span>
+            <span class="value" id="val-refund">৳ </span>
+        </div>
+
+        <div class="summary-item status-box due">
+            <span class="label"><i class="fas fa-exclamation-circle"></i> Due:</span>
+            <span class="value" id="val-due">৳ </span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-item cook">
+            <span class="label"><i class="fas fa-user-tie"></i> Cook Bill:</span>
+            <span class="value" id="val-cook">৳ </span>
+        </div>
+
+        <div class="summary-item fine">
+            <span class="label"><i class="fas fa-gavel"></i> Meal Fines:</span>
+            <span class="value" id="val-fine"></span>
+        </div>
+
+    </div>
+
+                
+            </div>
+            <div class="chart-card">
+    <h4><i class="fas fa-chart-bar"></i> Last 7 Days Analysis</h4>
+    <p id="dateRangeText" style="font-size: 12px; color: #aaa; margin-bottom: 5px;"></p>
+    <div class="placeholder-chart" style="position: relative; height: 300px; width: 100%;">
+        <canvas id="dailyMealChart"></canvas>
+    </div>
+</div>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="../JS/dashboard.js"></script>
+<script src="../JS/theme-handler.js"></script>
+<script src="../JS/expenses.js"></script>
+<script src="../JS/member.js"></script>
+<script src="../JS/profile.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</body>
+</html>

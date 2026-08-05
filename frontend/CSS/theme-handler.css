@@ -1,0 +1,165 @@
+/* কন্টেন্ট হেডার এরিয়া (টাইটেল এবং থিম সুইচ) */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px 15px 25px;
+    background-color: var(--content-bg);
+    color: var(--content-text);
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.content-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--content-text);
+}
+
+/* থিম সুইচ কন্টেইনার */
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+/* কাস্টম টগল সুইচ ডিজাইন */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+input:checked + .slider {
+    background-color: #6200ee !important;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* আইকন স্টাইল (সূর্য এবং চাঁদ) */
+.sun-icon, .moon-icon {
+    position: absolute;
+    font-size: 14px !important;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.sun-icon {
+    right: 7px;
+    color: #f39c12 !important;
+    opacity: 1;
+}
+
+.moon-icon {
+    left: 7px;
+    color: #f1c40f !important;
+    opacity: 0;
+}
+
+/* যখন ডার্ক মুড অন হবে */
+input:checked + .slider .sun-icon {
+    opacity: 0;
+}
+
+input:checked + .slider .moon-icon {
+    opacity: 1;
+}
+
+/* মেইন কন্টেন্টের ডিফল্ট লাইট মুড */
+.content {
+    background-color: #ffffff;
+    color: #333333;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ডার্ক থিম স্টাইলসমূহ */
+body.dark-theme .content {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .content-header {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+body.dark-theme .content-header h2 {
+    color: #f0f0f0 !important;
+}
+
+body.dark-theme .member-container,
+body.dark-theme .data-table-area,
+body.dark-theme .table-responsive,
+body.dark-theme .manager-member-controls,
+body.dark-theme .member-list-section, 
+body.dark-theme .report-container {
+    background-color: #1e1e1e !important;
+    color: #f0f0f0 !important;
+    border-color: #333 !important;
+}
+
+body.dark-theme .member-table,
+body.dark-theme .member-table th,
+body.dark-theme .member-table td,
+body.dark-theme table {
+    background-color: #1e1e1e !important;
+    color: #f0f0f0 !important;
+    border: 1px solid #333 !important;
+}
+
+body.dark-theme .member-table thead th {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .search-box input {
+    background-color: #2c2c2c !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+}
+
+body.dark-theme .search-box input::placeholder {
+    color: #ccc;
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <link rel="stylesheet" href="/frontend/CSS/expenses.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+    
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+    <div class="page-header">
+        <div class="header-left">
+            <i class="fas fa-shopping-cart welcome-icon" style="color: #e91e63;"></i>
+            <h2>Expenses<span id="dynamic-month-year"></span></h2>
+        </div>
+
+
+        <div class="header-right">
+            <div class="theme-switch-container">
+                <label class="theme-switch">
+                    <input type="checkbox" id="global-theme-toggle">
+                    <span class="slider round">
+                        <i class="fas fa-sun sun-icon"></i>
+                        <i class="fas fa-moon moon-icon"></i>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+        <div style="position: absolute; top: 122px;">
+            <button type="button" id="pay-due-btn" class="nav-btn" style="background-color: #27ae60; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> বাকি পরিশোধ
+            </button>
+        </div>
+
+        <div style="position: absolute; left: 450px; top: 122px;">
+            <button type="button" id="pay-cookbill-btn" class="nav-btn" style="background-color: #27ae60; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> রান্নার বিল পরিশোধ
+            </button>
+        </div>
+
+        <div style="position: absolute; left: 630px; top: 122px;">
+            <button type="button" id="view-duedetails-btn" class="nav-btn" style="background-color: #27ae60; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> বাকি হিসাব
+            </button>
+        </div>
+    <!-- বইয়ের শেলফ কন্টেইনার -->
+<div class="book-shelf" id="book-shelf-grid"></div>
+
+<!-- পাতা ওল্টানোর বাটন (Pagination) -->
+<div class="pagination-container" id="pagination-wrapper"></div>
+
+<!-- খাতার মতো ডায়েরি মোডাল -->
+<div class="custom-modal hidden" id="book-diary-modal">
+    <div class="book-wrapper">
+        <i class="fas fa-times close-book-icon" id="close-book-modal"></i>
+        <form id="diary-form" class="diary-container">
+            
+            <!-- Left Page: ডেটা এন্ট্রি / ভিউ ফর্ম -->
+            <div class="diary-page left-page">
+                <span class="diary-page-number" id="left-page-num">Page 1</span>
+                <h2 class="diary-heading" id="diary-modal-date">01 July, 2026</h2>
+                <div class="diary-line"></div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-taka-sign"></i> Total Cost (৳)</label>
+                    <input type="number" id="diary-amount" placeholder="Enter cost (e.g. 1200)">
+                </div>
+
+                <!-- নগদ খরচ ও বাকি খরচ -->
+                <div style="display: flex; gap: 5px;">
+                    <div class="form-group" style="flex: 1; width: 120px;">
+                        <label><i class="fas fa-money-bill-wave"></i> নগদ খরচ (৳)</label>
+                        <input type="number" id="diary-cash-cost" placeholder="Cash cost">
+                    </div>
+
+                    <div class="form-group" style="position: relative; width: 120px ;">
+                        <label><i class="fas fa-file-invoice-dollar"></i> বাকি খরচ (৳)</label>
+                        <input type="number" id="diary-due-cost" placeholder="Due cost">
+                    </div>
+
+                    <!-- Due Cost Category (মেম্বারদের জন্য হাইড করার জন্য আইডি যুক্ত করা হয়েছে) -->
+                    <div class="form-group" id="due-cost-category-wrapper">
+                        <label><i class="fas fa-tag"></i> Due Cost Category</label>
+                        <input type="text" id="diary-due-category" placeholder="e.g. Rice Supplier, Shop Due, etc.">
+                    </div>
+                </div>
+
+                <!-- বাজারকারী মেম্বারের নাম -->
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label for="diary-shopper" style="margin-bottom: 4px; display: block;"><i class="fas fa-user"></i> Shopper Name</label>
+                    <input type="text" id="diary-shopper" class="form-control" placeholder="Enter shopper name (e.g. Rakib)">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-list-ul"></i> Bazar Items Description</label>
+                    <textarea id="diary-desc" rows="6" placeholder="Fish, Rice, Potato, Meat..."></textarea>
+                </div>
+                
+                <button type="submit" class="save-diary-btn"><i class="fas fa-save"></i> Save into Diary</button>
+            </div>
+
+            <!-- Right Page: Receipts / Memos (যেহেতু তুমি রসিদ বা মেমোগুলো উপরে নিতে চেয়েছো, তাই লেআউট অনুযায়ী এটি আগে বা উপরে শো করার ব্যবস্থা করা হয়েছে) -->
+            <div class="diary-page right-page">
+                <span class="diary-page-number" id="right-page-num">Page 2</span>
+                <h2 class="diary-heading"><i class="fas fa-images"></i> Receipts / Memos</h2>
+                <div class="diary-line"></div>
+                
+                <!-- গ্যালারি ভিউয়ার -->
+                <div class="receipt-gallery-viewer">
+                    <button type="button" class="gallery-nav" id="gallery-prev"><i class="fas fa-chevron-left"></i></button>
+                    <div class="receipt-holder" style="position: relative;">
+                        <img src="" id="gallery-img-view" alt="Receipt">
+                        <button type="button" id="remove-current-img-btn" class="remove-img-badge hidden" title="Remove this image">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <p id="no-img-text">No receipt uploaded yet.</p>
+                    </div>
+                    <button type="button" class="gallery-nav" id="gallery-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="gallery-dots" id="gallery-dots-container"></div>
+                
+                <!-- মাল্টিপল ইমেজ আপলোডার -->
+                <div class="form-group" style="margin-top: 15px;">
+                    <label class="custom-file-upload">
+                        <i class="fas fa-camera"></i> Upload Receipts (Max 6)
+                        <input type="file" id="diary-files" accept="image/*" multiple hidden>
+                    </label>
+                    <span id="file-count-preview">0 files selected</span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- ইমেজ জুম এবং পপ-আপ করে দেখার জন্য নতুন লাইটবক্স কন্টেইনার -->
+<div id="image-lightbox" class="lightbox hidden">
+    <span class="lightbox-close">&times;</span>
+    <div class="lightbox-controls">
+        <button id="lightbox-zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+        <button id="lightbox-zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+        <button id="lightbox-reset" title="Reset"><i class="fas fa-sync-alt"></i></button>
+    </div>
+    <div class="lightbox-content-wrapper">
+        <img class="lightbox-content" id="lightbox-img" src="">
+    </div>
+</div>
+
+    </main>
+
+    <!-- বাকী পরিশোধ মোডাল -->
+<div class="custom-modal hidden" id="pay-due-modal">
+    <div class="book-wrapper" style="max-width: 500px;">
+        <i class="fas fa-times close-book-icon" id="close-pay-due-modal"></i>
+        <div class="diary-container" style="padding: 30px; display: block;">
+            <h2 class="diary-heading" style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #27ae60;"></i> বাকি পরিশোধ</h2>
+            <div class="diary-line"></div>
+            <form id="pay-due-form">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> বাকি ক্যাটাগরি (Category)</label>
+                    <input type="text" id="pay-due-category" placeholder="যেমন: Shop Due, Rice Supplier" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-taka-sign"></i> পরিশোধের পরিমাণ (৳)</label>
+                    <input type="number" id="pay-due-amount" placeholder="পরিমাণ লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> তারিখ (Date)</label>
+                    <input type="date" id="pay-due-date" class="clickable-date-input" required>
+                </div>
+                <button type="submit" class="save-diary-btn" style="background-color: #27ae60;"><i class="fas fa-save"></i> সেভ করুন</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- রান্নার বিল পরিশোধ মোডাল -->
+<div class="custom-modal hidden" id="pay-cookbill-modal">
+    <div class="book-wrapper" style="max-width: 500px;">
+        <i class="fas fa-times close-book-icon" id="close-cookbill-modal"></i>
+        <div class="diary-container" style="padding: 30px; display: block;">
+            <h2 class="diary-heading" style="margin-bottom: 15px;"><i class="fas fa-utensils" style="color: #27ae60;"></i> রান্নার বিল পরিশোধ</h2>
+            <div class="diary-line"></div>
+            <form id="pay-cookbill-form">
+                <div class="form-group">
+                    <label><i class="fas fa-taka-sign"></i> টাকার পরিমাণ (৳)</label>
+                    <input type="number" id="cookbill-amount" placeholder="পরিমাণ লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> তারিখ (Date)</label>
+                    <input type="date" id="cookbill-date" class="clickable-date-input" placeholder="mm/dd/yyyy" required>
+                </div>
+                <button type="submit" class="save-diary-btn" style="background-color: #27ae60;"><i class="fas fa-save"></i> সেভ করুন</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- বাকি হিসাব মোডাল -->
+<div class="custom-modal hidden" id="view-duedetails-modal">
+    <div class="book-wrapper" style="max-width: 700px;">
+        <i class="fas fa-times close-book-icon" id="close-duedetails-modal"></i>
+        <div class="diary-container" style="padding: 30px; display: block;">
+            <h2 class="diary-heading" style="margin-bottom: 15px;"><i class="fas fa-file-invoice-dollar" style="color: #27ae60;"></i> বাকি হিসাব</h2>
+            <div class="diary-line"></div>
+            <div id="due-details-content" style="max-height: 400px; overflow-y: auto;">
+                <!-- ডাইনামিক ডেটা এখানে লোড হবে -->
+                <p style="text-align: center; color: #718096;">হিসাব লোড হচ্ছে...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ডাইনামিক নোটিফিকেশন দেখানোর জন্য টোস্ট কন্টেইনার -->
+<div id="toast-notification" class="toast hidden">
+    <i class="fas fa-check-circle"></i>
+    <span id="toast-message">বাজার খরচ সফলভাবে ডাটাবেজে সেভ হয়েছে!</span>
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="../JS/dashboard.js"></script>
+<script src="../JS/theme-handler.js"></script>
+<script src="../JS/expenses.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

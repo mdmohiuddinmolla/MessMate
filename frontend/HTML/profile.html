@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | MessMate Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/profile.css">
+</head>
+<body>
+
+    <div class="profile-container">
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+
+        <div class="profile-header">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" id="display-pic" alt="Profile Picture">
+                <input type="file" id="pic-upload" hidden accept="image/*">
+                <label for="pic-upload" class="edit-img-btn" id="pic-label"><i class="fas fa-camera"></i></label>
+            </div>
+            <h2 id="view-name">Loading...</h2>
+            <div id="role-badge-container">
+                </div>
+        </div>
+
+        <div id="status-banner" class="status-banner status-pending">
+            <div class="status-text">
+                Status: <span id="view-status">Pending</span>
+            </div>
+            <div id="activation-controls">
+                <p class="activation-hint">Enter the Member ID sent to your email to activate account.</p>
+                <div class="activation-input-group">
+                    <input type="text" id="otp-input" placeholder="Enter ID as OTP">
+                    <button class="btn-primary" onclick="verifyActivation()">Verify</button>
+                </div>
+                <button id="send-otp-btn" class="btn-outline btn-small" onclick="sendActivationEmail()">
+                    <i class="fas fa-paper-plane"></i> Get ID in Email
+                </button>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <span class="card-title">Basic Information</span>
+            <div class="info-item">
+                <span class="label">Full Name</span>
+                <input type="text" id="info-name" class="edit-input" value="" disabled>
+            </div>
+            <div class="info-item">
+                <span class="label">Email Address</span>
+                <input type="email" id="info-email" class="edit-input" value="" disabled>
+                <button id="verify-email-btn" class="verify-btn hidden" onclick="sendChangeOTP('email')">Verify</button>
+            </div>
+            <div class="info-item">
+                <span class="label">Phone Number</span>
+                <input type="text" id="info-phone" class="edit-input" value="" disabled>
+                <button id="verify-phone-btn" class="verify-btn hidden" onclick="sendChangeOTP('phone')">Verify</button>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Nickname</span>
+                <input type="text" id="info-nickname" class="edit-input" value="" disabled>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Room Number</span>
+                <input type="text" id="info-room" class="edit-input" value="" disabled>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Semester</span>
+                <input type="text" id="info-semester" class="edit-input" value="" disabled>
+            </div>
+
+        <div class="info-card">
+            <span class="card-title">Mess Identity</span>
+            <div class="id-display-box">
+                <span class="label">Your Unique Member ID</span>
+                <span class="member-id-text" id="info-member-id" onclick="toggleMemberID()" style="cursor: pointer; user-select: none;" title="Click to show/hide ID">********</span>
+                <button id="reset-id-btn" class="btn-outline btn-small" onclick="resetMemberID()">
+                    <i class="fas fa-sync-alt"></i> Reset & Send New ID
+                </button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+    <button class="btn-primary" id="edit-toggle-btn" onclick="toggleEditMode()">
+        <i class="fas fa-edit"></i> Edit Profile
+    </button>
+
+    <div id="save-actions" class="hidden">
+    <button class="btn-success" style="flex: 1;" onclick="saveProfile()">Save</button>
+    <button class="btn-outline" style="flex: 1;" onclick="cancelEdit()">Cancel</button>
+</div>
+
+     
+    <button class="btn-outline" onclick="openChangePasswordModal()">
+        <i class="fas fa-key"></i> Change Password
+    </button>
+
+
+
+<!-- -->
+
+<div id="password-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-key"></i> Change Password</h3>
+            <span class="close-btn" onclick="closePasswordModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Current Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="old-pass" placeholder="Enter old password">
+                    <i class="fas fa-eye toggle-pass" onclick="toggleVisibility('old-pass', this)"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="new-pass" placeholder="At least 6 characters">
+                    <i class="fas fa-eye toggle-pass" onclick="toggleVisibility('new-pass', this)"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="confirm-new-pass" placeholder="Confirm new password">
+                    <i class="fas fa-eye toggle-pass" onclick="toggleVisibility('confirm-new-pass', this)"></i>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="updatePassword()">Update Password</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- -->
+
+
+
+    <button class="btn-danger" onclick="confirmLeaveMess()">
+        <i class="fas fa-sign-out-alt"></i> Delete Account
+    </button>
+</div>
+
+
+    <!---->
+
+    <div id="otp-modal" class="modal-overlay hidden">
+    <div class="otp-box profile-modal-dark">
+        <h3 id="modal-header">Verify Change</h3>
+        <p id="otp-message" class="info-text">Enter the 4-digit code sent to your email</p>
+        
+        <div class="input-group-styled" style="margin: 20px 0; position: relative; width: 100%; box-sizing: border-box;">
+    <i class="fas fa-key icon-left" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; pointer-events: none;"></i>
+    <input type="text" id="change-otp-input" placeholder="4 Digit OTP" maxlength="4" 
+           style="width: 100%; padding: 12px 12px 12px 45px; background: #2d324a; border: 1px solid #444; border-radius: 8px; color: white; font-size: 18px; letter-spacing: 5px; box-sizing: border-box;">
+</div>
+
+        <div class="modal-buttons">
+            <button class="btn-verify-update" onclick="confirmProfileUpdate()">Confirm & Update</button>
+            <button class="btn-cancel-red" onclick="closeOtpModal()">Cancel</button>
+        </div>
+        
+        <p class="resend-text">
+    Didn't get the code? 
+    <span id="resend-timer" class="timer-link" onclick="resendProfileOTP()" style="cursor: pointer; color: #3498db; text-decoration: underline;">
+        Resend Now
+    </span>
+</p>
+    </div>
+</div>
+
+
+    <!---->
+
+    <script src="../JS/config.js"></script>
+    <script src="../JS/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+</body>
+</html>

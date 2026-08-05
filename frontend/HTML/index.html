@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MessMate</title>
+    <link rel="stylesheet" href="/frontend/CSS/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="landing-container">
+        
+        <header class="welcome-header">
+            <i class="fas fa-utensils"></i>
+            <h1>Welcome to MessMate</h1>
+            <p>Simplify and streamline your mess management.</p>
+        </header>
+
+        <section class="access-portal">
+            
+            <div class="access-card member-card">
+    <i class="fas fa-eye member-icon"></i>
+    <h2>Guest Access</h2>
+    <p>View today's meal, check expenses, and see your monthly bill without logging in.</p>
+    
+    <a href="/frontend/HTML/dashboard.html" class="btn btn-member" onclick="handleGuestAccess(event)">
+        <i class="fas fa-clipboard-list"></i> View Status
+    </a>
+</div>
+
+            <div class="divider">OR</div>
+            
+            <div class="access-card manager-card">
+                <i class="fas fa-user-shield manager-icon"></i>
+                <h2>Manager Panel</h2>
+                <p>Add meals, enter expenses, and manage all members and finances.</p>
+                 <a href="/frontend/HTML/login.html" class="btn btn-manager">
+                    <i class="fas fa-sign-in-alt"></i> Login / Signup
+                </a>
+            </div>
+
+        </section>
+
+    </div>    
+
+    <script src="../JS/config.js"></script>
+    <script src="../JS/auth-check.js"></script>
+
+
+
+    
+</body>
+</html>

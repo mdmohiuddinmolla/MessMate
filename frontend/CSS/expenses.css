@@ -1,0 +1,375 @@
+/* --- Book Shelf Grid (6 Items Perfect Alignment) --- */
+/* --- Book Shelf Grid (৩ + ৩ বিন্যাস করার জন্য ফিক্সড গ্রিড) --- */
+.book-shelf {
+    display: grid;
+    /* এক লাইনে ফিক্সড ৩টি কলাম তৈরি করবে */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    padding: 25px 0;
+}
+
+/* রেসপন্সিভনেস: স্ক্রিন ছোট হলে (যেমন ট্যাবলেট বা মোবাইল) কার্ডগুলো যেন ভেঙে নিচে সুন্দরভাবে নেমে আসে */
+@media (max-width: 1024px) {
+    .book-shelf {
+        grid-template-columns: repeat(2, 1fr); /* ট্যাবলেটে এক লাইনে ২টি করে থাকবে */
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .book-shelf {
+        grid-template-columns: 1fr; /* মোবাইলে এক লাইনে ১টি করে থাকবে */
+        gap: 15px;
+    }
+}
+
+/* --- Premium Leather/Cloth Texture Book Cover --- */
+.bazar-book-cover {
+    background: linear-gradient(135deg, #141e30, #243b55); /* Elegant Dark Blue/Navy */
+    border-radius: 4px 16px 16px 4px;
+    height: 300px;
+    padding: 25px;
+    color: #f8f9fa;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset -3px 0 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 8px solid rgba(0, 0, 0, 0.35);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s;
+}
+
+.bazar-book-cover:hover {
+    transform: translateY(-10px) scale(1.02) rotate(-1deg);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3), inset -3px 0 8px rgba(0,0,0,0.1);
+}
+
+/* Blank/Empty diner kover look soft kora holo */
+.bazar-book-cover.is-empty {
+    background: linear-gradient(135deg, #2d3748, #4a5568); /* Charcoal Gray look */
+    opacity: 0.9;
+}
+
+.cover-date {
+    font-weight: 700;
+    font-size: 13px;
+    background: rgba(255,255,255,0.12);
+    padding: 5px 12px;
+    border-radius: 20px;
+    align-self: flex-start;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.cover-title {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+    margin-top: 30px;
+}
+
+.cover-amount {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.cover-status {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.bazar-book-cover:not(.is-empty) .cover-status { color: #2ec4b6; }
+.bazar-book-cover.is-empty .cover-status { color: #a0aec0; }
+
+/* --- Pagination Premium Look --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 30px 0;
+}
+.nav-btn {
+    background: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+    transition: all 0.2s ease;
+}
+.nav-btn:hover:not(:disabled) {
+    background: #d81b60;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(233, 30, 99, 0.4);
+}
+.nav-btn:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+    opacity: 0.4;
+    box-shadow: none;
+}
+#page-indicator {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-color, #2d3748);
+    background: rgba(0,0,0,0.05);
+    padding: 6px 16px;
+    border-radius: 20px;
+}
+
+/* --- Diary Open Book Modal --- */
+.custom-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(6px);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+    /* 🌟 ফিক্স ১: মোডাল পুরো স্ক্রিন জুড়ে উপচে পড়লে যেন স্ক্রোল করা যায় */
+    overflow-y: auto; 
+    padding: 40px 10px;
+}
+.hidden { display: none !important; }
+.book-wrapper { position: relative; width: 92%; max-width: 950px; }
+
+/* 🌟 ফিক্স ২: ক্লোজ বাটনকে ডায়েরির কোণায় Absolute করে সেট করা হলো যেন স্ক্রিনের বাইরে না যায় */
+.close-book-icon { 
+    position: absolute; 
+    top: 15px; 
+    right: 20px; 
+    color: #3e2723; /* ডায়েরির থিম কালার এর সাথে ম্যাচ করা */
+    font-size: 28px; 
+    cursor: pointer; 
+    opacity: 0.7; 
+    transition: 0.2s;
+    z-index: 10;
+}
+.close-book-icon:hover { opacity: 1; transform: scale(1.15); }
+
+/* 🌟 ফিক্স ৩: ডায়েরির ম্যাক্সিমাম হাইট স্ক্রিনের সাপেক্ষে ডাইনামিক করা হলো */
+.diary-container { 
+    display: flex; 
+    background: #fbf7ed; 
+    border-radius: 8px; 
+    max-height: 85vh; /* ল্যাপটপ বা ছোট স্ক্রিনে স্ক্রিনের ৮৫% এর বেশি বড় হবে না */
+    overflow-y: auto; /* ভেতরের ডেটা বেশি হলে ডায়েরির ভেতরে স্ক্রোলবার আসবে */
+    border: 8px solid #3e2723; /* Dark Wooden Spine look */
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6); 
+}
+
+/* রেসপন্সিভনেস বোনাস ফিক্স: মোবাইল স্ক্রিনে ডায়েরির দুই পাতা নিচে নিচে নেমে আসবে */
+@media (max-width: 768px) {
+    .diary-container {
+        flex-direction: column;
+        max-height: 75vh;
+    }
+    .left-page {
+        border-right: none !important;
+        border-bottom: 2px dashed rgba(62, 39, 35, 0.15);
+    }
+    .close-book-icon {
+        color: #fbf7ed;
+        top: -40px;
+        right: 0;
+    }
+}
+
+.diary-page { flex: 1; padding: 10px 20px; color: #3e2723; position: relative; display: flex; flex-direction: column; }
+.left-page { border-right: 2px dashed rgba(62, 39, 35, 0.15); background: linear-gradient(to right, #f2ead4 0%, #fbf7ed 5%); }
+.right-page { background: linear-gradient(to left, #f2ead4 0%, #fbf7ed 5%); }
+
+.diary-heading { 
+    font-size: 24px; 
+    font-family: 'Georgia', serif; 
+    font-weight: 700; 
+    color: var(--text-color, #3e2723); /* ডার্ক মোডে কালার স্বয়ংক্রিয়ভাবে পরিবর্তিত হবে */
+    letter-spacing: 0.5px;
+    margin-bottom: 0 !important; 
+}
+.diary-line { height: 1px; background: rgba(62, 39, 35, 0.2); margin: 4px 0 15px 0; }
+.diary-page-number { position: absolute; bottom: 1px; font-size: 12px; opacity: 0.6; font-weight: bold; font-family: monospace; color: #3e2723;}
+
+/* Form layout inside diary */
+.form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+.form-group label { font-weight: 700; margin-bottom: 8px; font-size: 14px; color: #3e2723; }
+.form-group input, .form-group textarea {
+    padding: 12px; border: 1px solid #d7ccc8; border-radius: 6px;
+    background: rgba(255, 255, 255, 0.7); color: #3e2723; font-size: 15px; transition: border 0.2s;
+}
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: #3e2723; }
+.save-diary-btn {
+    background-color: #3e2723;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;     
+    display: block;         /* ব্লক লেআউট করা হলো */
+    margin: 10px auto 0 auto; /* ডানে-বামে auto দেওয়ার ফলে বাটনটি মাঝখানে চলে আসবে */
+    transition: background 0.3s ease;
+}
+
+.save-diary-btn:hover {
+    background-color: #5d4037;
+}
+
+/* --- Image Gallery with Delete Option --- */
+.receipt-gallery-viewer {
+    display: flex; align-items: center; gap: 12px; width: 100%; height: 260px; margin-top: 10px;
+}
+.receipt-holder {
+    flex: 1; height: 100%; border: 2px dashed #bcaaa4; background: #fff;
+    display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 6px;
+    position: relative; /* ডিলিট বাটনকে হোল্ডারের ভেতরে রাখার জন্য এটি মাস্ট */
+}
+.receipt-holder img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.gallery-nav { background: #3e2723; color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;}
+.gallery-nav:hover { background: #5d4037; }
+
+/* Dynamic Image Delete Button CSS */
+.remove-img-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #e53935;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    font-size: 16px;
+    transition: transform 0.2s, background 0.2s;
+    z-index: 5;
+}
+.remove-img-badge:hover {
+    background: #b71c1c;
+    transform: scale(1.1);
+}
+
+.gallery-dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+.dot { width: 9px; height: 9px; background: #d7ccc8; border-radius: 50%; cursor: pointer; transition: 0.2s;}
+.dot.active { background: #3e2723; width: 18px; border-radius: 5px; }
+
+.custom-file-upload {
+    background: #1976d2; color: white; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s;
+}
+.custom-file-upload:hover { background: #1565c0; }
+
+
+/* ==========================================================================
+   IMAGE LIGHTBOX & ZOOM SYSTEM (NEW)
+   ========================================================================== */
+
+/* লাইটবক্স ব্যাকগ্রাউন্ড */
+.lightbox {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.lightbox:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* কন্ট্রোল প্যানেল (Zoom In/Out Buttons) */
+.lightbox-controls {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10001;
+}
+.lightbox-controls button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.lightbox-controls button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* ক্লোজ বাটন */
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* ইমেজ র‍্যাপার ও মূল ইমেজ */
+.lightbox-content-wrapper {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 85%;
+}
+.lightbox-content {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    cursor: grab;
+    user-select: none;
+}
+.lightbox-content:active {
+    cursor: grabbing;
+}
+
+/* গ্যালারির ছবিতে হোভার ইফেক্ট */
+#gallery-img-view {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+#gallery-img-view:hover {
+    transform: scale(1.02);
+}
+
+
+/* ডার্ক থিমে শুধুমাত্র নির্দিষ্ট হেডার এবং তারিখের টেক্সট কালার ফিক্স করার জন্য */
+body.dark-theme .diary-heading,
+body.dark-theme .left-page h3,
+body.dark-theme .right-page h3,
+body.dark-theme .left-page .diary-page-number,
+body.dark-theme .right-page .diary-page-number {
+    color: #222222 !important; /* ডার্ক থিমেও টেক্সটগুলো গাঢ় বা স্পষ্ট থাকবে */
+}

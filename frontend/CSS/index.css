@@ -1,0 +1,178 @@
+/* গ্লোবাল স্টাইল */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ভেরিয়েবল (Variables) */
+:root {
+    --dark-bg: #2c2c2c;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --member-color: #4CAF50; /* Green (Member Highlight) */
+    --manager-color: #2196F3; /* Blue (Manager Highlight) */
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ল্যান্ডিং কন্টেইনার */
+.landing-container {
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ওয়েলকাম হেডার */
+.welcome-header {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+}
+.welcome-header i {
+    font-size: 50px;
+    color: var(--member-color);
+    margin-bottom: 10px;
+}
+.welcome-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+.welcome-header p {
+    font-size: 18px;
+    color: #AAAAAA;
+}
+
+/* অ্যাক্সেস প্যানেল */
+.access-portal {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap; 
+}
+
+.access-card {
+    flex: 1;
+    min-width: 280px;
+    background-color: #121212;
+    padding: 30px 20px;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.access-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.access-card p {
+    color: #AAAAAA;
+    margin-bottom: 25px;
+    font-size: 15px;
+    flex-grow: 1;
+}
+
+/* আইকন স্টাইল */
+.member-icon {
+    font-size: 40px;
+    color: var(--member-color);
+    margin-bottom: 15px;
+}
+.manager-icon {
+    font-size: 40px;
+    color: var(--manager-color);
+    margin-bottom: 15px;
+}
+
+/* বাটন স্টাইল */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+}
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-member {
+    background-color: var(--member-color);
+    color: white;
+}
+.btn-member:hover {
+    background-color: #388e3c;
+}
+
+.btn-manager {
+    background-color: var(--manager-color);
+    color: white;
+}
+.btn-manager:hover {
+    background-color: #1976D2;
+}
+
+/* বিভাজক (Divider) */
+.divider {
+    font-size: 16px;
+    color: #666;
+    align-self: center;
+}
+
+/* রেসপনসিভনেস: মোবাইল ডিভাইসের জন্য */
+@media (max-width: 650px) {
+    .landing-container {
+        padding: 20px 15px;
+        width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .access-portal {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .access-card {
+        min-width: 100%;
+        padding: 20px;
+    }
+    .welcome-header h1 {
+        font-size: 30px;
+    }
+    .divider {
+        margin: 10px 0;
+    }
+}
+
+.access-card p {
+    max-width: 250px; /* এই মানটি আপনার কার্ডের উইডথ অনুযায়ী সেট করা হয়েছে */
+    margin: 0 auto 20px; /* প্যারাগ্রাফকে মাঝখানে রাখবে এবং নিচের বাটন থেকে গ্যাপ দিবে */
+    line-height: 1.5; /* লাইন দুটির মধ্যে সুন্দর গ্যাপ তৈরি করবে */
+    text-align: center; /* টেক্সটগুলো যেন কার্ডের মাঝখানে থাকে */
+    min-height: 3em; /* এটি নিশ্চিত করবে যেন উভয় কার্ডের প্যারাগ্রাফ সমান উচ্চতা পায় */
+}
+

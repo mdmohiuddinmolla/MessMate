@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="/frontend/CSS/dashboard.css">
+    <link rel="stylesheet" href="/frontend/CSS/member.css"> 
+    <link rel="stylesheet" href="/frontend/CSS/theme-handler.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar">
+    
+        <div class="profile-area" id="profile-area">
+            <div class="profile-img-container">
+                <img src="/frontend/Image/user.png" class="profile-img">
+            </div>
+            
+            <div class="profile-details">
+                <span class="profile-name">Manager</span>
+                <span class="profile-email">manager@messmate.com</span>
+            </div>
+            <i class="fas fa-chevron-down toggle-icon" id="dropdown-toggle-icon"></i> 
+        </div>
+        
+        <ul class="profile-dropdown-menu hidden" id="profile-dropdown-menu">
+            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fas fa-gear"></i> Mess Settings</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+    
+        <div class="sidebar-menu-container">
+            <a class="home-item" href="/frontend/HTML/dashboard.html">
+                <img src="/frontend/Image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+
+            <a class="menu-item" href="/frontend/HTML/meal-record.html">
+                <img src="/frontend/Image/meal-record.png" alt="Meal Records">
+                <span>Meal Record</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/member.html">
+                <img src="/frontend/Image/Member.png" alt="Member">
+                <span>Member</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/expenses.html">
+                <img src="/frontend/Image/expenses.png" alt="Expenses">
+                <span>Expenses</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/monthly-report.html">
+                <img src="/frontend/Image/monthly-report.png" alt="Monthly Report">
+                <span>Monthly Report</span>
+            </a>
+            <a class="menu-item" href="/frontend/HTML/past-record.html">
+                <img src="/frontend/Image/past-record.png" alt="Past Record">
+                <span>Past Record</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="content">
+    <div class="member-header">
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+            <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-users welcome-icon" style="color: #4CAF50; font-size: 1.8rem;"></i>
+                <h2 style="margin: 0; font-size: 1.8rem;">Member List & Management</h2>
+            </div>
+
+            <!-- Theme content (ডানপাশে পারফেক্টভাবে সেট করার জন্য) -->
+            <div class="header-right">
+                <div class="theme-switch-container">
+                    <label class="theme-switch">
+                        <input type="checkbox" id="global-theme-toggle">
+                        <span class="slider round">
+                            <i class="fas fa-sun sun-icon"></i>
+                            <i class="fas fa-moon moon-icon"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="manager-member-controls">
+            <button id="self-join-btn" class="action-btn-secondary" onclick="openSelfJoinModal()" style="display: none;">
+                <i class="fas fa-id-card"></i> Add Yourself
+            </button>
+
+            <button id="add-member-btn" class="action-btn-primary" style="display: none;">
+                <i class="fas fa-user-plus"></i> Add New Member
+            </button>
+
+            <button id="set-cook-bill-btn" class="action-btn-accent" style="display: none;" onclick="openCookBillModal()">
+                <i class="fas fa-utensils"></i> Set Cook Bill
+            </button>
+
+            <div class="term-selection-container manager-only">
+                <div class="date-inputs" style="display: flex; gap: 10px;">
+                    <div class="input-field">
+                        <label for="start-date">Select Term:</label>
+                        <input type="text" id="start-date" class="form-control" placeholder="Select Start Date" readonly>
+                    </div>
+                
+                    <div class="input-field">
+                        <label for="end-date">&nbsp;</label>
+                        <input type="text" id="end-date" class="form-control" placeholder="Select End Date" readonly>
+                    </div>
+                </div>
+
+                <div class="term-actions" style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button id="active-term-btn" class="action-btn-accent">
+                        <i class="fas fa-calendar-check"></i> Active Term
+                    </button>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="member-search-input" placeholder="Search by ID or Name...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="data-table-area">
+            <div class="table-responsive">
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Member Name</th>
+                            <th>Year/Semester</th> 
+                            <th>Total Deposit (৳)</th>
+                            <th>Total Meals</th>
+                            <th>Action (Manager Only)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="member-list-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<div id="add-member-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3><i class="fas fa-user-plus"></i> Add New Member</h3>
+
+        <form id="add-member-form">
+            <div class="form-group">
+                <label for="new-room-id">Room ID:</label>
+                <input type="text" id="new-room-id" required> 
+            </div>
+            <div class="form-group">
+                <label for="new-member-name">Member Name:</label>
+                <input type="text" id="new-member-name" required>
+            </div>
+            <div class="form-group">
+                <label for="new-member-semester">Year/Semester (e.g., V, 2nd, 3rd):</label>
+                <input type="text" id="new-member-semester" required>
+            </div>
+            <div class="form-group">
+                <label for="new-member-deposit">Initial Deposit (৳):</label>
+                <input type="number" id="new-member-deposit" min="0" value="0" required>
+            </div>
+            
+            <button type="submit" class="action-btn-primary">Add Member</button>
+        </form>
+    </div>
+</div>
+
+<div id="history-modal" class="modal">
+    <div class="modal-content history-content">
+        <span class="close-btn" onclick="closeHistoryModal()">&times;</span>
+        <h3 id="history-member-name">Deposit History</h3>
+        
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount (৳)</th>
+                </tr>
+            </thead>
+            <tbody id="history-list-body">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="mealModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeMealModal()">&times;</span>
+        <h3 id="mealModalTitle">Meal Breakdown</h3>
+  
+        <div id="mealDetailsBody">
+            </div>
+        <button class="action-btn-primary" style="width: 100%; margin-top: 15px;" onclick="closeMealModal()">Close</button>
+    </div>
+</div>
+
+<div id="cook-bill-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <span class="close-btn" onclick="closeCookBillModal()">&times;</span>
+        <h3><i class="fas fa-utensils"></i> Set Cook Bill</h3>
+
+        <form id="cook-bill-form" onsubmit="saveCookBillDirectly(event)">
+            <div class="form-group" style="margin-top: 15px;">
+                <label for="direct-cook-amount">Cook Bill Amount (টাকা):</label>
+                <input type="number" id="direct-cook-amount" class="form-control" placeholder="e.g. 500" required style="width: 100%; padding: 10px; margin-top: 5px;">
+            </div>
+
+            <button type="submit" class="action-btn-primary" style="width: 100%; margin-top: 15px;">Save Cook Bill</button>
+        </form>
+    </div>
+</div>
+
+<script src="../JS/config.js"></script>
+<script src="../JS/auth-check.js"></script>
+<script src="../JS/dashboard.js"></script> 
+<script src="../JS/member.js"></script> 
+<script src="../JS/theme-handler.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+</body>
+</html>
